@@ -69,10 +69,11 @@
     "browser": true,
     "jest": true
   },
-  "extends": ["eslint:recommended", "plugin:@next/next/recommended", "plugin:react/recommended"],
+  "extends": ["next/core-web-vitals", "eslint:recommended", "plugin:@next/next/recommended", "plugin:react/recommended"],
   "plugins": [
     "react",
     "jest",
-    "react-hooks"
+    "react-hooks",
+    "@next/next"
   ]
 }
