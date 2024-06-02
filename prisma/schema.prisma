@@ -1,0 +1,21 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Invite {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  email    String?
+  message  String?
+  details  String?
+  date     String
+  completed Boolean?
+  important Boolean?
+
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @default(now()) @updatedAt @map("updated_at")
+}
