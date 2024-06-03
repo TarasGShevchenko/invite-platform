@@ -8,7 +8,7 @@ import { Invite } from '../Invite';
 import { add, moon, sun } from '@/app/utils/Icons';
 
 export const Invites = ({ title, invites }) => {
-  const { theme, changeTheme, openModal, modal } = useGlobalState();
+  const { theme, changeTheme, openModal, modal, isLoading } = useGlobalState();
 
   return (
     <InvitesStyled theme={theme}>
@@ -21,34 +21,32 @@ export const Invites = ({ title, invites }) => {
         </button>
       </div>
 
-      <div className="invites grid">
-        {invites.map(
-          ({
-            id,
-            email,
-            message,
-            details,
-            date,
-            completed,
-            important
-          }) => (
-            <Invite
-              key={id}
-              email={email}
-              message={message}
-              details={details}
-              date={date}
-              completed={completed}
-              important={important}
-              id={id}
-            />
-          )
-        )}
-        <button className="invite-task" onClick={() => openModal('create')}>
-          {add}
-          Add New Invite
-        </button>
-      </div>
+      {isLoading ? (
+        <div className="w-full h-full flex items-center justify-center">
+          <span className="loader"></span>
+        </div>
+      ) : (
+        <div className="invites grid">
+          {invites.map(
+            ({ id, email, message, details, date, completed, important }) => (
+              <Invite
+                key={id}
+                email={email}
+                message={message}
+                details={details}
+                date={date}
+                completed={completed}
+                important={important}
+                id={id}
+              />
+            )
+          )}
+          <button className="invite-task" onClick={() => openModal('create')}>
+            {add}
+            Add New Invite
+          </button>
+        </div>
+      )}
     </InvitesStyled>
   );
 };
@@ -68,6 +66,7 @@ const InvitesStyled = styled.main`
   &::-webkit-scrollbar {
     width: 0.5rem;
   }
+
   .top {
     display: flex;
     justify-content: space-between;
@@ -139,6 +138,6 @@ const InvitesStyled = styled.main`
     }
   }
   @media screen and (max-width: 768px) {
-      padding: 1rem;
+    padding: 1rem;
   }
 `;
